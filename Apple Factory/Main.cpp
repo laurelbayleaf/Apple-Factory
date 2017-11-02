@@ -13,6 +13,8 @@
 # include <Siv3D.hpp>
 # include <HamFramework.hpp>
 
+# define AppleSize 60
+
 ///////////////////////////////////////////////////////////////////////
 //
 //  ゲームの基本情報
@@ -20,18 +22,18 @@
 namespace GameInfo
 {
 	// ゲームのタイトル
-	const String Title = L"Biscuit Clicker";
+	const String Title = L"An りんご";
 
 	// ゲームのバージョン（空の文字列も OK）
 	const String Version = L"Version 1.0";
 
 	// ゲームの Web サイト（無い場合は空の文字列にする）
-	const String WebURL = L"https://www.google.co.jp/";
+	const String WebURL = L"https://github.com/laurelbayleaf/Apple-Factory";
 
 	// 結果ツイートの文章（TweetHead + score + TweetTail)
-	const String TweetHead = L"Biscuit Clicker をプレイしたよ。結果: ";
+	const String TweetHead = L"An りんごをプレイしたよ。結果: ";
 
-	const String TweetTail = L" 枚 #BiscuitClicker";
+	const String TweetTail = L" 回 #Apple-Factory #Anりんご";
 
 	// ゲームの背景色
 	const ColorF BackgroundColor = ColorF(0.4, 0.7, 0.5);
@@ -117,9 +119,9 @@ struct MenuEffect : IEffect
 
 ///////////////////////////////////////////////////////////////////////
 //
-//  ビスケットの描画
+//  りんごの描画
 //
-void DrawBiscuit(const Circle& c, bool drawShadow)
+void DrawApple(const Circle& c, bool drawShadow)
 {
 	c.drawShadow({ 0, 2 }, 12, 2 + drawShadow * 2)
 		.draw(Color(250, 180, 100))
@@ -132,6 +134,8 @@ void DrawBiscuit(const Circle& c, bool drawShadow)
 		Circle(c.center + Circular(c.r * 0.5, i * 60_deg), 1.5).draw(ColorF(0.0, 0.3));
 	}
 }
+
+
 
 ///////////////////////////////////////////////////////////////////////
 //
@@ -321,11 +325,13 @@ private:
 
 	Stopwatch m_gameTimer;
 
-	Circle m_biscuit;
+	Circle m_apple;
 
 	int32 m_score = 0;
 
-	Circle generateBiscuit() const
+	float speed1, speed2;
+
+	Circle generateApple() const
 	{
 		return Circle(RandomVec2(RectF(Window::Size() * 0.8).setCenter(Window::Center())), Random(40, 60));
 	}
@@ -350,7 +356,11 @@ public:
 	void init() override
 	{
 		m_data->lastScore = 0;
+		speed1 = Random(10);
+		speed2 = Random(10);
 	}
+
+
 
 	void update() override
 	{
@@ -363,7 +373,7 @@ public:
 		{
 			m_gameTimer.start();
 
-			m_biscuit = generateBiscuit();
+			m_apple = generateApple();
 		}
 
 		if (!onGame())
@@ -378,16 +388,41 @@ public:
 			changeScene(L"Result", 2000);
 		}
 
-		const bool handCursor = m_biscuit.mouseOver;
+		const bool handCursor = m_apple.mouseOver;
+			speed1 *= 0.99;
+			speed2 *= 0.99;
+			m_apple.moveBy(speed1,speed2);
+			
+			if ((m_apple.x < 0 && speed1 < 0) || (Window::Width() - AppleSize < m_apple.x && speed1 > 0))
+			{
+				speed1 *= -1; //反射
+				if (speed1 > 0) {
+					m_apple.x = 0;
+				}
+				else {
+					m_apple.x = Window::Width() - AppleSize;
+				}
+			}
+			if ((m_apple.y < 0 && speed2 < 0) || (Window::Height() - AppleSize < m_apple.y && speed2 > 0))
+			{
+				speed2 *= -1; //反射
+				if (speed2 > 0) {
+					m_apple.y = 0;
+				}
+				else {
+					m_apple.y = Window::Height() - AppleSize;
+				}
+			}
 
 		Cursor::SetStyle(handCursor ? CursorStyle::Hand : CursorStyle::Default);
-
-		if (m_biscuit.leftClicked)
+		if (m_apple.leftClicked)
 		{
 			++m_score;
+			speed1 *= 2;
+			speed2 *= 2;
+			m_apple = generateApple();
+		}	
 
-			m_biscuit = generateBiscuit();
-		}
 	}
 
 	void draw() const override
@@ -415,7 +450,7 @@ public:
 			return;
 		}
 
-		DrawBiscuit(m_biscuit, m_biscuit.mouseOver);
+		DrawApple(m_apple, m_apple.mouseOver);
 
 		const int32 timeLeftMillisec = Max(gameTimeMillisec - m_gameTimer.ms(), 0);
 
@@ -489,16 +524,16 @@ public:
 
 	void draw() const override
 	{
-		DrawBiscuit(Circle(Window::Center().x - 80, Window::Height() * 0.4, 60), false);
+		DrawApple(Circle(Window::Center().x - 80, Window::Height() * 0.4, 60), false);
 
 		const double resultHeight = FontAsset(L"Result")(L"x", m_data->lastScore).region().h;
 
 		FontAsset(L"Result")(L"x", m_data->lastScore).draw(Window::Center().x + 50, Window::Height() * 0.4 - resultHeight / 2);
 
-		DrawBiscuit(titleButton, titleButton.mouseOver);
+		DrawApple(titleButton, titleButton.mouseOver);
 		FontAsset(L"ResultButton")(L"タイトルへ").drawAt(titleButton.center.movedBy(0, 90));
 
-		DrawBiscuit(tweetButton, tweetButton.mouseOver);
+		DrawApple(tweetButton, tweetButton.mouseOver);
 		FontAsset(L"ResultButton")(L"結果をツイート").drawAt(tweetButton.center.movedBy(0, 90));
 	}
 };
