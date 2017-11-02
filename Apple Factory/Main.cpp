@@ -68,10 +68,10 @@ namespace GameInfo
 	// スタッフロールのクレジット（項目は増減できる）
 	const Array<std::pair<String, Array<String>>> Credits
 	{
-		{ L"ゲームデザイン",{ L"Aaa Aaaa" } },
-		{ L"プログラム",{ L"Bbb Bbbb", L"Cccc Cccccc" } },
-		{ L"ゲームアート",{ L"Ddddd Ddddd" } },
-		{ L"音楽",{ L"Eeeee Eeee" } },
+		{ L"ゲームデザイン",{ L"Bay Leaf" } },
+		{ L"プログラム",{ L"Bay Leaf" } },
+		{ L"ゲームアート", {L"Irasto Ya" }},
+		{ L"音楽",{ L"Maou Damashii" } },
 		{ L"Special Thanks",{ L"You!" } },
 	};
 }
