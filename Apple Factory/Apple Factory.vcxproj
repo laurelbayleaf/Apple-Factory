@@ -177,6 +177,7 @@
     <Image Include="Example\Siv3D-kun.png" />
     <Image Include="Example\Well\Well.jpg" />
     <Image Include="Example\Windmill.png" />
+    <Image Include="fruit_apple.png" />
     <Image Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -272,6 +273,7 @@
   <ItemGroup>
     <Media Include="Example\Sound.mp3" />
     <Media Include="Example\風の丘.mp3" />
+    <Media Include="Resource\start.mp3" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Example\YomogiFont.ttf" />

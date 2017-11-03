@@ -1,13 +1,14 @@
 ﻿  Main.cpp
-Main.cpp(359): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-Main.cpp(360): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-Main.cpp(392): warning C4305: '*=': 'double' から 'float' へ切り詰めます。
-Main.cpp(393): warning C4305: '*=': 'double' から 'float' へ切り詰めます。
+Main.cpp(357): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+Main.cpp(358): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+Main.cpp(395): warning C4305: '*=': 'double' から 'float' へ切り詰めます。
+Main.cpp(396): warning C4305: '*=': 'double' から 'float' へ切り詰めます。
+Main.cpp(432): warning C4305: '+=': 'double' から 'float' へ切り詰めます。
      ライブラリ C:\Users\bay leaf\Documents\Apple-Factory\Release\Apple Factory.lib とオブジェクト C:\Users\bay leaf\Documents\Apple-Factory\Release\Apple Factory.exp を作成中
   コード生成しています。
-  1 of 3398 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+  1 of 3405 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    2 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
   Apple Factory.vcxproj -> C:\Users\bay leaf\Documents\Apple-Factory\Release\Apple Factory.exe
   Apple Factory.vcxproj -> C:\Users\bay leaf\Documents\Apple-Factory\Release\Apple Factory.pdb (Full PDB)
